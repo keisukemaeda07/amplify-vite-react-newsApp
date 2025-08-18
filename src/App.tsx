@@ -14,12 +14,16 @@ function App() {
   }, []);
 
   const fetchHeadLineNews = async () => {
-    const res = await fetch(
-      `${import.meta.env.VITE_NEWS_API_URL}?country=us&apiKey=${
-        import.meta.env.VITE_NEWS_API_KEY
-      }`
+    const result = await fetch(
+      `${import.meta.env.VITE_NEWS_API_URL}?country=us`,
+      {
+        method: "GET",
+        headers: {
+          "X-Api-Key": import.meta.env.VITE_NEWS_API_KEY,
+        },
+      }
     );
-    const data = await res.json();
+    const data = await result.json();
     setArticles(data.articles);
   };
 

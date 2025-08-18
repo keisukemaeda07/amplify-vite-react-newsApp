@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAuthenticator } from "@aws-amplify/ui-react";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
+// import { useAuthenticator } from "@aws-amplify/ui-react";
+// import type { Schema } from "../amplify/data/resource";
+// import { generateClient } from "aws-amplify/data";
 import { Article } from "./models/models";
 import ArticleItem from "./componets/ArticleItem";
 import "./App.css";
 
-const client = generateClient<Schema>();
-
 function App() {
-  const { signOut } = useAuthenticator();
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {

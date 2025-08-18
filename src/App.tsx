@@ -14,17 +14,19 @@ function App() {
   }, []);
 
   const fetchHeadLineNews = async () => {
-    const result = await fetch(
-      `${import.meta.env.VITE_NEWS_API_URL}?country=us`,
-      {
-        method: "GET",
-        headers: {
-          "X-Api-Key": import.meta.env.VITE_NEWS_API_KEY,
-        },
+    try {
+      const result = await fetch(
+        "https://ds63nxzwohyrebaxtuaqzzyfwu0guffv.lambda-url.ap-southeast-2.on.aws/"
+      );
+      if (!result.ok) {
+        throw new Error(`HTTP error! status: ${result.status}`);
       }
-    );
-    const data = await result.json();
-    setArticles(data.articles);
+      const data = await result.json();
+      console.log(data);
+      setArticles(data.articles);
+    } catch (err) {
+      console.error("Error:", err);
+    }
   };
 
   return (

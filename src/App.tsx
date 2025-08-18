@@ -1,37 +1,38 @@
 import { useEffect, useState } from "react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
+import { Article } from "./models/models";
+import ArticleItem from "./componets/ArticleItem";
+import "./App.css";
 
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const { signOut } = useAuthenticator();
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
+    fetchHeadLineNews();
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
-  }
+  const fetchHeadLineNews = async () => {
+    const res = await fetch(
+      `${import.meta.env.VITE_NEWS_API_URL}?country=us&apiKey=${
+        import.meta.env.VITE_NEWS_API_KEY
+      }`
+    );
+    const data = await res.json();
+    setArticles(data.articles);
+  };
 
   return (
     <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+      <h1>News Library</h1>
+      <div className="item-box">
+        {articles.map((article, index) => (
+          <ArticleItem article={article} key={index} />
         ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-          Review next step of this tutorial.
-        </a>
       </div>
     </main>
   );

@@ -32,10 +32,12 @@ function App() {
   return (
     <main>
       <h1>News Library</h1>
-      <div className="item-box">
-        {articles.map((article, index) => (
-          <ArticleItem article={article} key={index} />
-        ))}
+      <div className="p-6 flex justify-center">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl ">
+          {articles.map((article, index) => (
+            <ArticleItem article={article} key={index} />
+          ))}
+        </div>
       </div>
     </main>
   );

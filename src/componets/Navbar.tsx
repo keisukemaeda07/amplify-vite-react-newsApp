@@ -1,9 +1,16 @@
 import React from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import { initFlowbite } from "flowbite";
 
 const Navbar: React.FC = () => {
   const { signOut } = useAuthenticator();
+
+  useEffect(() => {
+    initFlowbite();
+  }, []);
+
   return (
     <div>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">

@@ -5,11 +5,13 @@ import { generateClient } from "aws-amplify/data";
 import { Article } from "../models/models";
 import ArticleItem from "../componets/ArticleItem";
 import "../App.css";
+import Loading from "../componets/Loading";
 
 const client = generateClient<Schema>();
 
 const HomePage: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetchHeadLineNews();
@@ -35,26 +37,33 @@ const HomePage: React.FC = () => {
       setArticles(filteredArticles);
     } catch (err) {
       console.error("Error:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="max-w-screen-xl mx-auto px-4">
       <h1 className="text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-        Head Line
+        Headlines
       </h1>
-      <div className="py-4 flex justify-center">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl ">
-          {articles.map((article, index) => (
-            <ArticleItem
-              article={article}
-              articles={articles}
-              setArticles={setArticles}
-              key={index}
-            />
-          ))}
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="py-4 flex justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl ">
+            {articles.map((article, index) => (
+              <ArticleItem
+                article={article}
+                articles={articles}
+                setArticles={setArticles}
+                key={index}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

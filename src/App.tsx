@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import Navbar from "./componets/Navbar";
 import HomePage from "./pages/HomePage";
 import FavoritePage from "./pages/FavoritePage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route element={<Navbar />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/search" element={<HomePage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/favorite" element={<FavoritePage />} />
         </Route>
       </Routes>

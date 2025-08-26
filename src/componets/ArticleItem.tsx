@@ -1,6 +1,5 @@
 import React from "react";
 import { Article } from "../models/models";
-import "./style.css";
 import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
@@ -51,6 +50,7 @@ const ArticleItem: React.FC<Props> = ({
           <a
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             href={article.url}
+            target="_blank"
           >
             Read more
             <svg

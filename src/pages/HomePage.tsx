@@ -4,7 +4,6 @@ import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Article } from "../models/models";
 import ArticleItem from "../componets/ArticleItem";
-import "../App.css";
 import Loading from "../componets/Loading";
 
 const client = generateClient<Schema>();

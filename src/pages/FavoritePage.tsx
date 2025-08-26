@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import FavoriteItem from "../componets/FavoriteItem";
-import "../App.css";
 
 const client = generateClient<Schema>();
 
